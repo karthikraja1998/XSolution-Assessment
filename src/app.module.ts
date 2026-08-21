@@ -1,16 +1,26 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import * as dotenv from 'dotenv';
+import { Tenant } from './models/tenant.model';
+import { User } from './models/user.model';
+import { AuthModule } from './auth/auth.module';
 dotenv.config();
 
 @Module({
   imports: [
     SequelizeModule.forRoot({
-      dialect: 'postgres',
-      uri: process.env.DATABASE_URL,
+      dialect: (process.env.DB_DIALECT as any) || 'postgres',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT || '5432', 10),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
+      logging: false,
+      models: [Tenant, User],
       autoLoadModels: true,
-      synchronize: true, // For development purposes (don't use in prod usually)
+      synchronize: process.env.NODE_ENV === 'dev',
     }),
+    AuthModule,
   ],
   controllers: [],
   providers: [],
