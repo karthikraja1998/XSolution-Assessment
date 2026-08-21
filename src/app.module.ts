@@ -4,8 +4,10 @@ import * as dotenv from 'dotenv';
 import { Tenant } from './models/tenant.model';
 import { User } from './models/user.model';
 import { WebhookSubscription } from './models/webhook-subscription.model';
+import { Event } from './models/event.model';
 import { AuthModule } from './auth/auth.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
+import { EventsModule } from './events/events.module';
 dotenv.config();
 
 @Module({
@@ -18,13 +20,14 @@ dotenv.config();
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       logging: false,
-      models: [Tenant, User, WebhookSubscription],
+      models: [Tenant, User, WebhookSubscription, Event],
       autoLoadModels: true,
       synchronize: true,
       // synchronize: process.env.NODE_ENV === 'dev',
     }),
     AuthModule,
     SubscriptionsModule,
+    EventsModule,
   ],
   controllers: [],
   providers: [],
