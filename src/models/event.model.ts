@@ -1,5 +1,6 @@
-import { Column, DataType, Model, Table, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Column, DataType, Model, Table, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
 import { Tenant } from './tenant.model';
+import { Delivery } from './delivery.model';
 
 @Table({
   tableName: 'events',
@@ -46,4 +47,7 @@ export class Event extends Model {
 
   @BelongsTo(() => Tenant)
   tenant: Tenant;
+
+  @HasMany(() => Delivery)
+  deliveries: Delivery[];
 }

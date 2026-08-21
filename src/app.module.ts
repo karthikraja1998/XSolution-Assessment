@@ -5,6 +5,7 @@ import { Tenant } from './models/tenant.model';
 import { User } from './models/user.model';
 import { WebhookSubscription } from './models/webhook-subscription.model';
 import { Event } from './models/event.model';
+import { Delivery } from './models/delivery.model';
 import { AuthModule } from './auth/auth.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { EventsModule } from './events/events.module';
@@ -20,7 +21,7 @@ dotenv.config();
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       logging: false,
-      models: [Tenant, User, WebhookSubscription, Event],
+      models: [Tenant, User, WebhookSubscription, Event, Delivery],
       autoLoadModels: true,
       synchronize: true,
       // synchronize: process.env.NODE_ENV === 'dev',

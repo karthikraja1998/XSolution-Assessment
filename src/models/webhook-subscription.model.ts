@@ -1,5 +1,6 @@
-import { Column, DataType, Model, Table, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Column, DataType, Model, Table, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
 import { Tenant } from './tenant.model';
+import { Delivery } from './delivery.model';
 
 @Table({ tableName: 'webhook_subscriptions', timestamps: true })
 export class WebhookSubscription extends Model {
@@ -44,4 +45,7 @@ export class WebhookSubscription extends Model {
 
   @BelongsTo(() => Tenant)
   tenant: Tenant;
+
+  @HasMany(() => Delivery)
+  deliveries: Delivery[];
 }
