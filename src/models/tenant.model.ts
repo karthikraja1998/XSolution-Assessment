@@ -1,5 +1,6 @@
 import { Column, DataType, Model, Table, HasMany } from 'sequelize-typescript';
 import { User } from './user.model';
+import { WebhookSubscription } from './webhook-subscription.model';
 
 @Table({ tableName: 'tenants', timestamps: true })
 export class Tenant extends Model {
@@ -17,5 +18,8 @@ export class Tenant extends Model {
   declare name: string;
 
   @HasMany(() => User)
-  declare users: User[];
+  users: User[];
+
+  @HasMany(() => WebhookSubscription)
+  subscriptions: WebhookSubscription[];
 }

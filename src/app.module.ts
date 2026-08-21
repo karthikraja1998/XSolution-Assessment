@@ -3,7 +3,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import * as dotenv from 'dotenv';
 import { Tenant } from './models/tenant.model';
 import { User } from './models/user.model';
+import { WebhookSubscription } from './models/webhook-subscription.model';
 import { AuthModule } from './auth/auth.module';
+import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 dotenv.config();
 
 @Module({
@@ -16,11 +18,13 @@ dotenv.config();
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       logging: false,
-      models: [Tenant, User],
+      models: [Tenant, User, WebhookSubscription],
       autoLoadModels: true,
-      synchronize: process.env.NODE_ENV === 'dev',
+      synchronize: true,
+      // synchronize: process.env.NODE_ENV === 'dev',
     }),
     AuthModule,
+    SubscriptionsModule,
   ],
   controllers: [],
   providers: [],
